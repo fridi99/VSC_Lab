@@ -1,1 +1,1 @@
-Laborabgabe vonGruppe: Sigl, Rohland und Aslami
+Laborabgabe von Gruppe: Sigl, Rohland und Aslami
