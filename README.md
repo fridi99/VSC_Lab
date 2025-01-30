@@ -8,6 +8,7 @@ Unsere Abgabe besteht aus drei Projects.
 Am besten laufen alle Projekte geleichzeitig
 
 Grobe Informationeen zu:
+
 Simulation: Das Projekt enthält einen SimulationManager der mehrere Meters verwaltet. Diese haben einen Zeitabhängigen stromverbrauch und Produktion und werden durch DateTime Objekte ausgelesen. Einfachheitshalber ist nur eine Instanz jeder Klasse im SimulationManager, aber man könnte beliebig viele hinzufügen. Der SimulationManager schickt über RabbitMQ die Smartmeter Daten an ein Topic.
 
 
