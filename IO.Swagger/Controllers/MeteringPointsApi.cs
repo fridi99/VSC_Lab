@@ -109,7 +109,7 @@ namespace IO.Swagger.Controllers
         [SwaggerOperation("GetMeteringPointMeteringPointsIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(MeteringPoint), description: "Successful Response")]
         [SwaggerResponse(statusCode: 422, type: typeof(HTTPValidationError), description: "Validation Error")]
-        public virtual IActionResult GetMeteringPointMeteringPointsIdGet([FromRoute][Required]Object id_)
+        public virtual IActionResult GetMeteringPointMeteringPointsIdGet([FromRoute][Required]string id_)
         { 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(MeteringPoint));
@@ -129,12 +129,15 @@ namespace IO.Swagger.Controllers
             _mongoCollection = database.GetCollection<BsonDocument>("meteringPoints");
             foreach (var meteringPoint in _mongoCollection.AsQueryable())
             {
+                Console.WriteLine(meteringPoint["meteringPointNumber"].ToString());
+                Console.WriteLine(id_);
+                
                 if (meteringPoint["meteringPointNumber"].ToString() == id_)
                 {
                     return new ObjectResult(meteringPoint);
                 }
             }
-                return StatusCode(404);
+            return StatusCode(404);
 
         }
 

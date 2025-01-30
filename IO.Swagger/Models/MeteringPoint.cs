@@ -27,42 +27,37 @@ namespace IO.Swagger.Models
     public partial class MeteringPoint : IEquatable<MeteringPoint>
     { 
         /// <summary>
-        /// Gets or Sets Name
-        /// </summary>
-
-        [DataMember(Name="name")]
-        public Object Name { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Description
-        /// </summary>
-
-        [DataMember(Name="description")]
-        public Object Description { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Id
-        /// </summary>
-        [Required]
-
-        [DataMember(Name="id")]
-        public Object Id { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Owner
-        /// </summary>
-        [Required]
-
-        [DataMember(Name="owner")]
-        public Object Owner { get; set; }
-
-        /// <summary>
         /// Gets or Sets MeteringPointNumber
         /// </summary>
         [Required]
 
         [DataMember(Name="meteringPointNumber")]
         public Object MeteringPointNumber { get; set; }
+        
+        /// <summary>
+        /// Gets or Sets MeterReading
+        /// </summary>
+        [Required]
+        
+        [DataMember(Name="meterReading")]
+        public Object MeterReading { get; set; }
+        
+        /// <summary>
+        /// Gets or Sets OperatingState
+        /// </summary>
+        [Required]
+        
+        [DataMember(Name="operatingState")]
+        public Object OperatingState { get; set; }
+        
+        /// <summary>
+        /// Gets or Sets Timestamp
+        /// </summary>
+        [Required]
+        
+        [DataMember(Name="timestamp")]
+        public Object Timestamp { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -72,11 +67,10 @@ namespace IO.Swagger.Models
         {
             var sb = new StringBuilder();
             sb.Append("class MeteringPoint {\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Owner: ").Append(Owner).Append("\n");
             sb.Append("  MeteringPointNumber: ").Append(MeteringPointNumber).Append("\n");
+            sb.Append("  MeterReading: ").Append(MeterReading).Append("\n");
+            sb.Append("  OperatingState: ").Append(OperatingState).Append("\n");
+            sb.Append("  Timestamp: ").Append(Timestamp).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -114,29 +108,24 @@ namespace IO.Swagger.Models
 
             return 
                 (
-                    Name == other.Name ||
-                    Name != null &&
-                    Name.Equals(other.Name)
-                ) && 
-                (
-                    Description == other.Description ||
-                    Description != null &&
-                    Description.Equals(other.Description)
-                ) && 
-                (
-                    Id == other.Id ||
-                    Id != null &&
-                    Id.Equals(other.Id)
-                ) && 
-                (
-                    Owner == other.Owner ||
-                    Owner != null &&
-                    Owner.Equals(other.Owner)
-                ) && 
-                (
                     MeteringPointNumber == other.MeteringPointNumber ||
                     MeteringPointNumber != null &&
                     MeteringPointNumber.Equals(other.MeteringPointNumber)
+                ) && 
+                (
+                    MeterReading == other.MeterReading ||
+                    MeterReading != null &&
+                    MeterReading.Equals(other.MeterReading)
+                ) && 
+                (
+                    OperatingState == other.OperatingState ||
+                    OperatingState != null &&
+                    OperatingState.Equals(other.OperatingState)
+                ) && 
+                (
+                    Timestamp == other.Timestamp ||
+                    Timestamp != null &&
+                    Timestamp.Equals(other.Timestamp)
                 );
         }
 
@@ -150,16 +139,14 @@ namespace IO.Swagger.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (Name != null)
-                    hashCode = hashCode * 59 + Name.GetHashCode();
-                    if (Description != null)
-                    hashCode = hashCode * 59 + Description.GetHashCode();
-                    if (Id != null)
-                    hashCode = hashCode * 59 + Id.GetHashCode();
-                    if (Owner != null)
-                    hashCode = hashCode * 59 + Owner.GetHashCode();
                     if (MeteringPointNumber != null)
                     hashCode = hashCode * 59 + MeteringPointNumber.GetHashCode();
+                    if (MeterReading != null)
+                    hashCode = hashCode * 59 + MeterReading.GetHashCode();
+                    if (OperatingState != null)
+                    hashCode = hashCode * 59 + OperatingState.GetHashCode();
+                    if (Timestamp != null) 
+                    hashCode = hashCode * 59 + Timestamp.GetHashCode();
                 return hashCode;
             }
         }
