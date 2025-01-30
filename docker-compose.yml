@@ -1,10 +1,96 @@
 ﻿services:
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: ${PREFIX:-fh-}rabbitmq
+    restart: unless-stopped
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - fh
+
+  mongo:
+    image: mongo
+    container_name: ${PREFIX:-fh-}mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongo/data:/data/db
+    networks:
+      - fh
+
+  mongo-express:
+    image: mongo-express
+    container_name: ${PREFIX:-fh-}mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_URL: mongodb://root:password@${PREFIX:-fh-}mongo:27017/
+      ME_CONFIG_BASICAUTH: false
+    networks:
+      - fh
+
+  postgres:
+    image: postgres:16.2
+    container_name: ${PREFIX:-fh-}postgres
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    networks:
+      - fh
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.5
+    container_name: ${PREFIX:-fh-}keycloak
+    command:
+      - start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://${PREFIX:-fh-}postgres/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+    networks:
+      - fh
+
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: ${PREFIX:-fh-}grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_INSTALL_PLUGINS=yesoreyeram-infinity-datasource
+    volumes:
+      - ./data/grafana/data:/var/lib/grafana
+    networks:
+      - fh
+
   io.swagger:
     image: io.swagger
     container_name: swagger
+    ports: 
+      - 5000:5000
     build:
       context: .
       dockerfile: IO.Swagger/Dockerfile
+    networks:
+      - fh
+    depends_on:
+      - mongo
 
   consumer:
     image: consumer
@@ -12,12 +98,24 @@
     build:
       context: .
       dockerfile: Consumer/Dockerfile
+    networks:
+      - fh
+    depends_on:
+      - rabbitmq
+      - mongo
 
   simulation:
     image: simulation
     container_name: simulation
-    volumes:
-      - .:/app
     build:
       context: .
       dockerfile: Simulation/Dockerfile
+    networks:
+      - fh
+    depends_on:
+      - rabbitmq
+
+networks:
+  fh:
+    name: ${PREFIX:-fh-}network
+    driver: bridge

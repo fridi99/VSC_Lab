@@ -35,7 +35,7 @@ public class SimulationManager
                 {
                     x.UsingRabbitMq((context,cfg) =>
                     {
-                        cfg.Host("localhost", h =>
+                        cfg.Host("fh-rabbitmq", h =>
                         {
                             h.ConfigureBatchPublish(bp =>
                             {

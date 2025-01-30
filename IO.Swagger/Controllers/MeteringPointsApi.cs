@@ -53,7 +53,7 @@ namespace IO.Swagger.Controllers
 
             //TODO: Uncomment the next line to return response 422 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(422, default(HTTPValidationError));
-            var mongoClient = new MongoClient("mongodb://root:password@localhost:27017");
+            var mongoClient = new MongoClient("mongodb://root:password@fh-mongo:27017");
 
             var database = mongoClient.GetDatabase("my_database");
 
@@ -121,7 +121,7 @@ namespace IO.Swagger.Controllers
             // return StatusCode(422, default(HTTPValidationError));
             
             
-            var mongoClient = new MongoClient("mongodb://root:password@localhost:27017");
+            var mongoClient = new MongoClient("mongodb://root:password@fh-mongo:27017");
 
             var database = mongoClient.GetDatabase("my_database");
 
@@ -154,7 +154,7 @@ namespace IO.Swagger.Controllers
         { 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Object));
-            var mongoClient = new MongoClient("mongodb://root:password@localhost:27017");
+            var mongoClient = new MongoClient("mongodb://root:password@fh-mongo:27017");
 
             var database = mongoClient.GetDatabase("my_database");
 

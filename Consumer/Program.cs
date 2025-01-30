@@ -29,7 +29,7 @@ internal class Program
     {
         // MongoDB Setup
         // "mongodb://<db_username>:<db_password>@<hostname>:<port>/?authSource=users";
-        var mongoClient = new MongoClient("mongodb://root:password@localhost:27017");
+        var mongoClient = new MongoClient("mongodb://root:password@fh-mongo:27017/?authSource=admin");
 
         var database = mongoClient.GetDatabase("my_database");
 
@@ -39,7 +39,7 @@ internal class Program
         // Configure MassTransit with RabbitMQ
         var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
         {
-            cfg.Host("localhost", h =>
+            cfg.Host("fh-rabbitmq", h =>
             {
             });
             cfg.ReceiveEndpoint("SmartMeter", e =>
