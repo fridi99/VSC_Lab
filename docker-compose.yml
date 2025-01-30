@@ -1,6 +1,23 @@
 ﻿services:
   io.swagger:
     image: io.swagger
+    container_name: swagger
     build:
       context: .
       dockerfile: IO.Swagger/Dockerfile
+
+  consumer:
+    image: consumer
+    container_name: consumer
+    build:
+      context: .
+      dockerfile: Consumer/Dockerfile
+
+  simulation:
+    image: simulation
+    container_name: simulation
+    volumes:
+      - .:/app
+    build:
+      context: .
+      dockerfile: Simulation/Dockerfile

@@ -18,4 +18,5 @@ RUN dotnet publish "Simulation.csproj" -c $BUILD_CONFIGURATION -o /app/publish /
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY Solar_Plant_data.csv /app/Solar_Plant_data.csv
 ENTRYPOINT ["dotnet", "Simulation.dll"]
